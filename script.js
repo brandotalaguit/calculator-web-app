@@ -10,6 +10,10 @@ const clearButton = document.getElementById('clear');
 const deleteButton = document.getElementById('delete');
 const dotButton = document.getElementById('dot');
 
+let currentOperand = '';
+let previousOperand = '';
+let operation = null;
+
 numberButtons.forEach((button) => {
 	button.addEventListener('click', () => {
 		appendNumber(button.innerText);
@@ -45,7 +49,9 @@ function compute() {
 	let computation;
 	const prev = parseFloat(previousOperand);
 	const current = parseFloat(currentOperand);
-	if (isNaN(prev) || isNaN(current)) return;
+
+	if (isNaN(prev) || isNaN(current)) 
+    return;
 
 	switch (operation) {
 		case '+':
@@ -71,15 +77,16 @@ function compute() {
 }
 
 function appendDot() {
-	if (currentOperand.includes('.')) return; // Prevent multiple decimals
-	if (currentOperand === '') currentOperand = '0'; // If empty, start with '0.'
-	currentOperand += '.';
+	if (currentOperand.includes('.')) 
+    return; // Prevent multiple decimals
+
+	if (currentOperand === '') 
+    currentOperand = '0'; // If empty, start with '0.'
+	
+    currentOperand += '.';
 	updateDisplay();
 }
 
-let currentOperand = '';
-let previousOperand = '';
-let operation = null;
 
 function appendNumber(number) {
 	if (number === '.' && currentOperand.includes('.')) 
@@ -89,7 +96,8 @@ function appendNumber(number) {
 }
 
 function chooseOperation(selectedOperation) {
-	if (currentOperand === '') return;
+	if (currentOperand === '') 
+    return;
 
 	if (previousOperand !== '') {
 		compute();
@@ -102,5 +110,5 @@ function chooseOperation(selectedOperation) {
 
 function updateDisplay() {
 	displayCurrent.innerText = currentOperand;
-	displayPrevious.innerText = previousOperand;
+	displayPrevious.innerText = previousOperand + ' ' + (operation || '');
 }
