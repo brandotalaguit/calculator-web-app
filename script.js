@@ -112,3 +112,26 @@ function updateDisplay() {
 	displayCurrent.innerText = currentOperand;
 	displayPrevious.innerText = previousOperand + ' ' + (operation || '');
 }
+
+
+document.addEventListener('keydown', (event) => {
+	if (event.key >= 0 && event.key <= 9) {
+		appendNumber(event.key);
+	} else if (event.key === '.') {
+		appendDot();
+	} else if (event.key === 'Backspace') {
+		deleteNumber();
+	} else if (event.key === 'Enter' || event.key === '=') {
+		compute();
+	} else if (
+		event.key === '+' ||
+		event.key === '-' ||
+		event.key === '*' ||
+		event.key === '/'
+	) {
+		chooseOperation(event.key);
+	} else if (event.key === 'Escape') {
+		clear();
+	}
+	updateDisplay();
+});
